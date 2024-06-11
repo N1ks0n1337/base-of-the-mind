@@ -1,30 +1,27 @@
+// pages/api/auth/register.js
 import dbConnect from '../../../utils/dbConnect';
 import User from '../../../models/User';
 import argon2 from 'argon2';
 
-dbConnect();
-
 export default async (req, res) => {
+    await dbConnect();
+
     const { method } = req;
 
     switch (method) {
         case 'POST':
             try {
                 const { name, email, password } = req.body;
-
                 const existingUser = await User.findOne({ email });
                 if (existingUser) {
-                    return res.status(400).json({ error: 'Email уже используется' });
+                    return res.status(400).json({ error: 'Email already in use' });
                 }
-
-                const hashedPassword = await argon2.hash(password);
-                console.log('Generated hashed password:', hashedPassword);
-                const user = new User({ name, email, password: hashedPassword });
+                const user = new User({ name, email, password});
                 await user.save();
-                res.status(201).json({ message: 'Пользователь успешно зарегистрирован' });
+
+                res.status(201).json({ message: 'User registered successfully', user: { id: user._id, name: user.name, email: user.email } });
             } catch (error) {
-                console.error('Ошибка при регистрации пользователя:', error);
-                res.status(500).json({ error: 'Ошибка при регистрации пользователя' });
+                res.status(500).json({ error: error.message });
             }
             break;
         default:

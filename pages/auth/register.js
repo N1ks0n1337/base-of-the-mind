@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
+import { useAuth } from '../../context/AuthContext';
 
 const Register = () => {
     const [formData, setFormData] = useState({
@@ -7,6 +8,8 @@ const Register = () => {
         email: '',
         password: ''
     });
+    const { register } = useAuth();
+    const [message, setMessage] = useState('');
 
     const handleChange = (e) => {
         setFormData({
@@ -17,18 +20,10 @@ const Register = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const res = await fetch('/api/auth/register', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(formData)
-        });
-        const data = await res.json();
-        if (res.ok) {
-            alert(data.message);
-        } else {
-            alert(data.error);
+        try {
+            await register(formData.name, formData.email, formData.password);
+        } catch (error) {
+            setMessage(error.message);
         }
     };
 
@@ -93,6 +88,7 @@ const Register = () => {
                                 <button type="submit" className='xl:w-72 bg-orangeCustom rounded-lg h-10'>Зарегистрироваться</button>
                             </div>
                         </form>
+                        <div>{message && <p>{message}</p>}</div>
                     </div>
                 </div>
             </main>

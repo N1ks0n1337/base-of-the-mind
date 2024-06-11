@@ -1,3 +1,4 @@
+// pages/api/auth/reset-password.js
 import dbConnect from '../../../utils/dbConnect';
 import User from '../../../models/User';
 import jwt from 'jsonwebtoken';
