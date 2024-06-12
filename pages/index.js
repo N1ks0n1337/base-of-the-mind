@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import Filters from '../components/Filters';
 import Content from '../components/Content';
 import SearchBar from '../components/SearchBar';
+import FileUpload from '../components/FileUpload';
 
 const Home = () => {
     const [posts, setPosts] = useState([]);
@@ -25,17 +26,14 @@ const Home = () => {
     return (
         <div>
             <Header />
-            <main className="flex">
-                <Filters applyFilters={handleApplyFilters} />
-                <div className="flex-1">
-                    <SearchBar onSearch={handleSearch} />
-                    <Content posts={posts} />
-                </div>
-                <div className="w-1/4 p-4">
-                    <p>Загрузите свой файл, после модерации он будет добавлен на платформу</p>
-                    <div className="border-dashed border-2 border-gray-300 p-4">
-                        <p>txt, csv, pdf, word, xlsx</p>
+            <main className="py-10 w-screen flex justify-center">
+                <div className='xl:w-5/6 flex justify-center gap-10'>
+                    <Filters applyFilters={handleApplyFilters} />
+                    <div className="flex-1">
+                        <SearchBar onSearch={handleSearch} />
+                        <Content posts={posts} />
                     </div>
+                    <FileUpload />
                 </div>
             </main>
         </div>

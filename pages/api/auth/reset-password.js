@@ -2,7 +2,6 @@
 import dbConnect from '../../../utils/dbConnect';
 import User from '../../../models/User';
 import jwt from 'jsonwebtoken';
-import argon2 from 'argon2';
 
 dbConnect();
 
@@ -20,7 +19,7 @@ export default async (req, res) => {
                     return res.status(400).json({ error: 'Неверный токен или пользователь не найден' });
                 }
 
-                user.password = await argon2.hash(password);
+                user.password = password;
                 await user.save();
 
                 res.status(200).json({ message: 'Пароль успешно сброшен' });
