@@ -8,6 +8,7 @@ import FileUpload from '../components/FileUpload';
 
 const Home = () => {
     const [posts, setPosts] = useState([]);
+    const [isFiltersVisible, setIsFiltersVisible] = useState(false);
     const [filters, setFilters] = useState({
         year: [],
         keywords: [],
@@ -23,14 +24,25 @@ const Home = () => {
         // Логика фильтрации постов
     };
 
+    const toggleFilters = () => {
+        setIsFiltersVisible(! isFiltersVisible);
+    }
+
     return (
         <div>
             <Header />
-            <main className="py-10 w-screen flex justify-center">
-                <div className='xl:w-5/6 flex justify-center gap-10'>
-                    <Filters applyFilters={handleApplyFilters} />
+            <main className="py-10 w-screen flex flex-col md:flex-row xl:flex-row justify-center">
+                <div className='w-full xl:w-5/6 flex flex-col md:flex-row justify-center gap-4 md:gap-10'>
+                    <div className="flex justify-end md:hidden mb-4">
+                        <button  onClick={toggleFilters} className="px-4 py-2 bg-blueCustom text-white rounded-lg">
+                            {isFiltersVisible ? 'Скрыть фильтры' : 'Показать фильтры'}
+                        </button>
+                    </div>
+                    <div className={`w-full md:w-1/4 xl:w-1/5 ${isFiltersVisible ? 'block' : 'hidden'} md:static md:block`}>
+                        <Filters applyFilters={handleApplyFilters} />
+                    </div >
                     <div className="flex-1">
-                        <SearchBar onSearch={handleSearch} />
+                        <SearchBar onSearch={handleSearch} className="order-1 xl:order-none" />
                         <Content posts={posts} />
                     </div>
                     <FileUpload />

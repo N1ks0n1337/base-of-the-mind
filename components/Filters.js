@@ -47,7 +47,7 @@ const Filters = ({ applyFilters }) => {
       };
 
     return (
-        <div className="xl:w-96 p-4 my-6 border border-2 border-orangeCustom rounded-lg">
+        <div className="xl:w-84 p-4 my-6 border border-2 border-orangeCustom rounded-lg">
             <h2 className="font-regular text-12px">Фильтры:</h2>
             {/* Add filter fields here */}
             <div className='p-2'>
@@ -102,7 +102,7 @@ const Filters = ({ applyFilters }) => {
                 </form>
             </div>
             <div className='flex justify-center text-14px'>
-                <button onClick={handleApply} className="w-screen mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg">Применить</button>
+                <button onClick={handleApply} className="w-screen mt-4 px-4 py-2 bg-blueCustom text-white rounded-lg">Применить</button>
             </div>
         </div>
     );
