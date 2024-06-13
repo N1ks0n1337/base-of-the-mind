@@ -9,7 +9,11 @@ const tagsData = [
     { id: 3, label: 'Ключевое слово' },
     { id: 4, label: 'ЦД' },
     { id: 5, label: 'Туризм' },
-    { id: 4, label: 'Здраво' },
+    { id: 6, label: 'Здраво' },
+    { id: 7, label: 'Слово' },
+    { id: 8, label: 'Слово' },
+    { id: 9, label: 'Слово' },
+
   ]; {/*Потом это заменить на map c данными с БД*/}
 
   const yearData = [
@@ -27,12 +31,28 @@ const tagsData = [
     { id: 4, label: '2023-2024' }
   ];{/*Потом это заменить на map c данными с БД*/}
 
+  const directions = [
+    {id: 1, name: 'Инвестиционный климат и развитие бизнеса'},
+    {id: 2, name: 'ЖКХ и Энергетика'},
+    {id: 3, name: 'Развитие городского транспорта'},
+    {id: 4, name: 'Экология'},
+    {id: 5, name: 'Архитектура, градостроительство и организация городского пространства'},
+    {id: 8, name: 'Образование и воспитание'},
+    {id: 7, name: 'Здравоохранение и здравостроительство'},
+    {id: 8, name: 'Культура и искуство'},
+    {id: 9, name: 'Туризм и сервис'},
+    {id: 10, name: 'Организация работы CityLab'},
+    {id: 11, name: 'Цифровой двойник города как инструмент системы управления УГЧ'},
+    {id: 12, name: 'Мониторинг реализации стратегии'}
+  ]
+
 const Filters = ({ applyFilters }) => {
     const [year, setYear] = useState([]);
     const [keywords, setKeywords] = useState([]);
     const [direction, setDirection] = useState([]);
     const [selectedTags, setSelectedTags] = useState([]);
     const [selectedYear, setSelectedYear] = useState([]);
+    const [queryYear, setQueryYear] = useState('');
 
     const handleApply = () => {
         applyFilters({ year, keywords, direction });
@@ -46,6 +66,10 @@ const Filters = ({ applyFilters }) => {
         );
       };
 
+      const handleSearch = () => {
+        onSerch(queryYear);
+      }
+
     return (
         <div className="xl:w-84 p-4 my-6 border border-2 border-orangeCustom rounded-lg">
             <h2 className="font-regular text-12px">Фильтры:</h2>
@@ -53,48 +77,53 @@ const Filters = ({ applyFilters }) => {
             <div className='p-2'>
                 <form>
                     <div className='flex flex-col text-montserrat'>
-                        <div className='flex flex-col gap-1'>
-                            <h3 className='text-14px'>Тип файла</h3>
-                            <label className='mx-4'>
-                                <input
-                                    type="checkbox"
-                                    id="option1"
-                                    name='option1'
-                                    className=''
-                                />
-                                <span className='ml-2 text-14px'>PDF</span>
-                            </label>
-                            <label className='mx-4'>
-                                <input
-                                    type="checkbox"
-                                    id="option1"
-                                    name='option1'
-                                    className=''
-                                />
-                                <span className='ml-2 text-14px'>TXT</span>
-                            </label>
-                        </div>
                         {/*Чекбоксы с годами*/}
                         <div className='flex flex-col gap-2 my-4'>
                             <h3 className='text-14px'>Год</h3>
-                            <div>
+                            <input
+                                type='text'
+                                onChange={(e) => setQueryYear(e.target.value)}
+                                placeholder='2023'
+                                className='border border-blueCustom rounded-lg w-auto p-2 text-14px' />
+                            <div className='h-24 overflow-y-auto leftscrollbar'>
                                 {yearData.map((year) => (
                                     <CheckboxYear key={year.id}
                                         label={year.label}
                                         isSelected={selectedYear.includes(year.label)}
-                                        />
+                                    />
                                 ))}
                             </div>
                         </div>
                         {/*Теги*/}
-                        <div>
+                        <div className='flex flex-col gap-2 my-2'>
                             <h3 className='text-14px'>Ключевые слова</h3>
-                            <div  className="flex flex-wrap gap-x-4 gap-y-2 m-4">
-                                {tagsData.map((tag) => (
-                                    <Tag key={tag.id}
-                                        label={tag.label}
-                                        isSelected={selectedTags.includes(tag.label)}
-                                        onClick={() => toggleTag(tag.label)} />
+                            <input
+                                type='text'
+                                onChange={(e) => setQueryYear(e.target.value)}
+                                placeholder='Искусственный интеллект'
+                                className='border border-blueCustom rounded-lg w-auto p-2 text-14px' />
+                            <div className='h-24 overflow-y-auto leftscrollbar'>
+                                {tagsData.map((tags) => (
+                                    <CheckboxYear key={tags.id}
+                                        label={tags.label}
+                                        isSelected={selectedTags.includes(tags.label)}
+                                    />
+                                ))}
+                            </div>
+                        </div>
+                        <div className='flex flex-col gap-2 my-2'>
+                            <h3 className='text-14px'>Направления</h3>
+                            <input
+                                type='text'
+                                onChange={(e) => setQueryYear(e.target.value)}
+                                placeholder='CityLab'
+                                className='border border-blueCustom rounded-lg w-auto p-2 text-14px' />
+                            <div className='h-24 overflow-y-auto leftscrollbar'>
+                                {directions.map((direction) => (
+                                    <CheckboxYear key={direction.id}
+                                        label={direction.name}
+                                        isSelected={selectedTags.includes(direction.name)}
+                                    />
                                 ))}
                             </div>
                         </div>
