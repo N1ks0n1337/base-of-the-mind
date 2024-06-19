@@ -32,9 +32,9 @@ const Register = () => {
   return (
     <div>
       <main className='flex w-screen'>
-        <div className='xl:w-2/3 h-screen bg-orangeCustom self-center'>
+        <div className='xl:w-2/3 h-screen bg-orangeDarckCustom self-center'>
           <div className='flex flex-col items-center justify-center min-h-screen space-x-10 font-montserrat'>
-            <img src="/img/kub.svg" alt="Kub Image" />
+            <img src="/img/registrationKub.svg" alt="Kub Image" />
             <p className='text-xl text-white text-center'>База знаний мирового опыта создания Умных городов.</p>
           </div>
         </div>
