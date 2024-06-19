@@ -2,6 +2,8 @@
 import React, { useState } from 'react';
 import Tag from './Tag';
 import CheckboxYear from './CheckboxYear';
+import Slider from 'rc-slider';
+import SliderYear from './SliderYear';
 
 const tagsData = [
     { id: 1, label: 'ИТС' },
@@ -53,6 +55,7 @@ const Filters = ({ applyFilters }) => {
     const [selectedTags, setSelectedTags] = useState([]);
     const [selectedYear, setSelectedYear] = useState([]);
     const [queryYear, setQueryYear] = useState('');
+    const [range, setRange] = useState([2013, 2020]);
 
     const handleApply = () => {
         applyFilters({ year, keywords, direction });
@@ -64,11 +67,15 @@ const Filters = ({ applyFilters }) => {
             ? prevState.filter((t) => t !== tag)
             : [...prevState, tag]
         );
-      };
+    };
 
-      const handleSearch = () => {
+    const handleSearch = () => {
         onSerch(queryYear);
-      }
+    }
+
+    const handleRangeChange = (newRange) => {
+        setRange(newRange);
+    };
 
     return (
         <div className="xl:w-84 p-4 my-6 border border-2 border-orangeCustom rounded-lg">
@@ -77,25 +84,20 @@ const Filters = ({ applyFilters }) => {
             <div className='p-2'>
                 <form>
                     <div className='flex flex-col text-montserrat'>
-                        {/*Чекбоксы с годами*/}
+                        {/*Слайдер с годами*/}
                         <div className='flex flex-col gap-2 my-4'>
                             <h3 className='text-14px'>Год</h3>
-                            <input
-                                type='text'
-                                onChange={(e) => setQueryYear(e.target.value)}
-                                placeholder='2023'
-                                className='border border-blueCustom rounded-lg w-auto p-2 text-14px' />
-                            <div className='h-24 overflow-y-auto leftscrollbar'>
-                                {yearData.map((year) => (
-                                    <CheckboxYear key={year.id}
-                                        label={year.label}
-                                        isSelected={selectedYear.includes(year.label)}
-                                    />
-                                ))}
-                            </div>
+                            <SliderYear 
+                                min={2010}
+                                max={2024}
+                                step={1}
+                                defaultValue={range}
+                                onChange={handleRangeChange}
+                                className="md:w-screen"
+                            />
                         </div>
                         {/*Теги*/}
-                        <div className='flex flex-col gap-2 my-2'>
+                        <div className='flex flex-col gap-2'>
                             <h3 className='text-14px'>Ключевые слова</h3>
                             <input
                                 type='text'
@@ -111,7 +113,7 @@ const Filters = ({ applyFilters }) => {
                                 ))}
                             </div>
                         </div>
-                        <div className='flex flex-col gap-2 my-2'>
+                        <div className='flex flex-col gap-2 my-3'>
                             <h3 className='text-14px'>Направления</h3>
                             <input
                                 type='text'

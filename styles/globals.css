@@ -31,3 +31,36 @@ div::-webkit-scrollbar-thumb {
 .leftscrollbar>div {
   transform:scaleX(-1);
 }
+
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  background: transparent;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  background: #3B84BA;
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+  z-index: 10;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  background: #3B84BA;
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+  z-index: 10;
+}
+
+input[type="range"]:focus {
+  outline: none;
+}
