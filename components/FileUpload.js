@@ -1,3 +1,4 @@
+// components/FileUpload.js
 'use client';
 
 import React, { useState } from 'react';
@@ -34,6 +35,7 @@ const FileUpload = () => {
     setLoading(true);
     const formData = new FormData();
     formData.append('file', file);
+    formData.append('userId', localStorage.getItem('userId')); // Предположим, что userId хранится в localStorage
 
     try {
       const token = localStorage.getItem('token');

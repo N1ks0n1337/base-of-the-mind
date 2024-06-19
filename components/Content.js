@@ -9,11 +9,17 @@ import axios from 'axios';
 const Content = () => {
     const [posts, setPosts] = useState([]);
     const [isFavorite, setIsFavorite] = useState(false);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         const fetchPosts = async () => {
-            const res = await axios.get('/api/files');
-            setPosts(res.data.files);
+            try {
+                const res = await axios.get('/api/files');
+                setPosts(res.data.files);
+            } catch (error) {
+                console.error('Error fetching posts:', error);
+                setError('Failed to fetch posts. Please try again later.');
+            }
         };
 
         fetchPosts();
@@ -25,9 +31,10 @@ const Content = () => {
 
     return (
         <div className="px-4">
+            {error && <p className="text-red-500">{error}</p>}
             {posts.map((post, index) => (
                 <div key={index} className="flex mb-4 p-4 border rounded-lg shadow text-montserrat">
-                    <div className=''>
+                    <div>
                         <h3 className="text-16px font-regulr">{post.name}</h3>
                         <p className='my-2 text-12px'>{post.summary}</p>
                         

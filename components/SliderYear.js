@@ -1,3 +1,4 @@
+// components/SliderYear.js
 import { useState } from "react"
 
 const SliderYear = ({ min, max, step, defaultValue, onChange,  trackHeight = '2px'}) => {

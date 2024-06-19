@@ -6,6 +6,7 @@ import { useAuth } from '../context/AuthContext';
 const Header = () => {
     const [menuOpen, setMenuOpen] = useState(false);
     const { user, logout } = useAuth();
+    console.log(useAuth())
     const menuRef = useRef(null);
 
     const handleClickOutside = (event) => {
@@ -34,7 +35,7 @@ const Header = () => {
             <div className="relative" ref={menuRef}>
                 {user ? (
                     <div className="flex items-center cursor-pointer" onClick={() => setMenuOpen(!menuOpen)}>
-                        <img src="/profile.jpg" alt="Profile" className="h-8 w-8 rounded-full" />
+                        <img src="img/ava.png" alt="Profile" className="h-8 w-8 rounded-full" />
                         <span className="ml-2">{user.name}</span>
                         <span className="ml-1">&#9660;</span>
                     </div>

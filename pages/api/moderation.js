@@ -36,7 +36,7 @@ export default async (req, res) => {
                 // Обновить данные файла
                 file.summary = summary;
                 file.tags = tags;
-                file.title = title;
+                file.name = title;
                 file.status = 'pending';  // Устанавливаем статус "на модерации"
 
                 await file.save();

@@ -1,5 +1,4 @@
 // models/File.js
-
 import mongoose from 'mongoose';
 
 const FileSchema = new mongoose.Schema({
@@ -7,8 +6,21 @@ const FileSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    path: {
+    format: {
         type: String,
+        required: true,
+    },
+    uploadDate: {
+        type: Date,
+        default: Date.now,
+    },
+    size: {
+        type: Number,
+        required: true,
+    },
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
         required: true,
     },
     summary: {
@@ -19,14 +31,9 @@ const FileSchema = new mongoose.Schema({
         type: [String],
         required: true,
     },
-    uploadedAt: {
-        type: Date,
-        default: Date.now,
-    },
-    user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: true,
+    status: {
+        type: String,
+        default: 'pending',
     },
 });
 

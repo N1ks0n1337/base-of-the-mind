@@ -33,7 +33,7 @@ const generateSummary = async (filePath) => {
 
     const response = await openai.chat.completions.create({
         model: "gpt-4o",
-        messages: [{ role: "system", content: `Сгенерируй саммари для всего текста дальше: ${text}` }],
+        messages: [{ role: "system", content: `Сгенерируй краткую сводку в 50 слов, для всего текста: ${text}` }],
         max_tokens: 150,
     });
 
@@ -45,7 +45,7 @@ const generateTags = async (filePath) => {
 
     const response = await openai.chat.completions.create({
         model: "gpt-4o",
-        messages: [{ role: "system", content: `Сгенерируй теги, для следующего текста. Все теги должны быть через запятую: ${text}` }],
+        messages: [{ role: "system", content: `Сгенерируй теги, для следующего текста. Все теги должны быть через запятую в формате: тег, тег, тег. Вот сам текст: ${text}` }],
         max_tokens: 50,
     });
 

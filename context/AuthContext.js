@@ -18,6 +18,7 @@ export const AuthProvider = ({ children }) => {
     if (token) {
       const decoded = jwtDecode(token);
       setUser(decoded);
+      localStorage.setItem('userId', decoded.id); // Сохранение userId
     }
     setLoading(false);
   }, []);
@@ -29,6 +30,7 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem('token', token);
       const decoded = jwtDecode(token);
       setUser(decoded);
+      localStorage.setItem('userId', decoded.id); 
       router.push('/');
     } catch (error) {
       console.error('Login failed:', error);
@@ -48,6 +50,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('userId');
     setUser(null);
     router.push('/auth/login');
   };
