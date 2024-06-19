@@ -9,7 +9,8 @@ module.exports = {
         orangeCustom: "#F19031",
         orangeDarckCustom: "#C97019",
         greyCustom: "#808080",
-        blueCustom: "#3B84BA"
+        blueCustom: "#3B84BA",
+        blueDarkCustom: "#396D93",
       },
       fontFamily: {
         montserrat: ['Montserrat', 'sans-serif'],
@@ -19,6 +20,7 @@ module.exports = {
         '24px': '1.5rem',
         '12px': '0.75rem',
         '16px': '1rem',
+        '18px': '1.125rem',
       }
     },
   },
