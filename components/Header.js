@@ -1,18 +1,37 @@
 // components/Header.js
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useAuth } from '../context/AuthContext';
 
 const Header = () => {
     const [menuOpen, setMenuOpen] = useState(false);
     const { user, logout } = useAuth();
+    const menuRef = useRef(null);
+
+    const handleClickOutside = (event) => {
+        if (menuRef.current && !menuRef.current.contains(event.target)) {
+            setMenuOpen(false);
+        }
+    };
+
+    useEffect(() => {
+        if (menuOpen) {
+            document.addEventListener('mousedown', handleClickOutside);
+        } else {
+            document.removeEventListener('mousedown', handleClickOutside);
+        }
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [menuOpen]);
 
     return (
         <header className="flex justify-between items-center p-4 bg-white shadow">
             <div className="flex items-center">
                 <img src="img/logo.svg" alt="Logo" className="h-8" />
             </div>
-            <div className="relative">
+            <div className="relative" ref={menuRef}>
                 {user ? (
                     <div className="flex items-center cursor-pointer" onClick={() => setMenuOpen(!menuOpen)}>
                         <img src="/profile.jpg" alt="Profile" className="h-8 w-8 rounded-full" />

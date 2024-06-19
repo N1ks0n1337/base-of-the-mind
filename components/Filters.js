@@ -28,7 +28,7 @@ const tagsData = [
     { id: 9, label: '2020-2021' },
     { id: 10, label: '2021-2022' },
     { id: 11, label: '2022-2023' },
-    { id: 4, label: '2023-2024' }
+    { id: 12, label: '2023-2024' }
   ];{/*Потом это заменить на map c данными с БД*/}
 
   const directions = [

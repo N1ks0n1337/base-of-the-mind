@@ -25,7 +25,7 @@ const Home = () => {
     };
 
     const toggleFilters = () => {
-        setIsFiltersVisible(! isFiltersVisible);
+        setIsFiltersVisible(!isFiltersVisible);
     }
 
     return (
@@ -34,7 +34,7 @@ const Home = () => {
             <main className="py-10 w-screen flex flex-col md:flex-row xl:flex-row justify-center">
                 <div className='w-full xl:w-5/6 flex flex-col md:flex-row justify-center gap-4 md:gap-10'>
                     <div className="flex justify-end md:hidden mb-4">
-                        <button  onClick={toggleFilters} className="px-4 py-2 bg-blueCustom text-white rounded-lg">
+                        <button onClick={toggleFilters} className="px-4 py-2 bg-blueCustom text-white rounded-lg">
                             {isFiltersVisible ? 'Скрыть фильтры' : 'Показать фильтры'}
                         </button>
                     </div>

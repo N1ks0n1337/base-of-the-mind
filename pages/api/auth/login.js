@@ -1,39 +1,33 @@
 // pages/api/auth/login.js
 import dbConnect from '../../../utils/dbConnect';
 import User from '../../../models/User';
-import jwt from 'jsonwebtoken';
+import { generateToken } from '../../../utils/jwt';
 import argon2 from 'argon2';
 
-export default async (req, res) => {
-    await dbConnect();
+export default async function handler(req, res) {
+  await dbConnect();
 
-    const { method } = req;
+  if (req.method !== 'POST') {
+    return res.status(405).json({ message: 'Method not allowed' });
+  }
 
-    switch (method) {
-        case 'POST':
-            try {
-                const { email, password } = req.body;
-                const user = await User.findOne({ email });
-                if (!user) {
-                    return res.status(404).json({ error: 'User not found' });
-                }
+  const { email, password } = req.body;
 
-                const isMatch = await argon2.verify(user.password, password);
-                if (!isMatch) {
-                    return res.status(400).json({ error: 'Invalid email or password' });
-                }
-
-                const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-
-                res.status(200).json({ token, user: { id: user._id, name: user.name, email: user.email } });
-            } catch (error) {
-                res.status(500).json({ error: error.message });
-            }
-            break;
-        default:
-            res.setHeader('Allow', ['POST']);
-            res.status(405).end(`Method ${method} Not Allowed`);
-            break;
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(401).json({ message: 'Invalid email or password' });
     }
-};
 
+    const validPassword = await argon2.verify(user.password, password);
+    if (!validPassword) {
+      return res.status(401).json({ message: 'Invalid email or password' });
+    }
+
+    const token = generateToken(user);
+    res.status(200).json({ token });
+  } catch (error) {
+    console.error('Login error:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+}

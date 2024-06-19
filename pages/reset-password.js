@@ -1,3 +1,5 @@
+// pages/reset-password.js
+
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import Header from '../components/Header';

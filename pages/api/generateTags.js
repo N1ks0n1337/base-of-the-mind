@@ -1,3 +1,5 @@
+// pages/api/generateTags.js
+
 const { Configuration, OpenAIApi } = require('openai');
 const configuration = new Configuration({
     apiKey: process.env.OPENAI_API_KEY,
@@ -13,8 +15,8 @@ export default async (req, res) => {
 
     try {
         const response = await openai.createCompletion({
-            model: "text-davinci-003",
-            prompt: `Generate relevant tags for the following text: ${text}`,
+            model: "gpt-4o",
+            prompt: `Сгенерируй теги, для следующего текста. Все теги должны быть через запятую: ${text}`,
             max_tokens: 50,
         });
 
@@ -24,3 +26,8 @@ export default async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 };
+
+
+
+
+
