@@ -21,6 +21,7 @@ module.exports = {
         '12px': '0.75rem',
         '16px': '1rem',
         '18px': '1.125rem',
+        '22px': '1.3375rem',
       }
     },
   },
